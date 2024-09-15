@@ -6,8 +6,15 @@
 	width: 210px;
 	height: 50px;
 	text-align: center;
+	background: #ffc802;
 	border: 1px solid #000000;
 	cursor: pointer;
+	transition: background-color 0.3s, color 0.3s;
+}
+
+.button:first-child {
+	color: #000000;
+	background: #ffffff;
 }
 
 .button:active {
@@ -15,5 +22,10 @@
 }
 
 .button:hover {
-	background: var(--gold, #ffc802);
+	background: var(--gold, #ffedab);
+}
+
+.button:first-child:hover {
+	color: #ffffff;
+	background: #000000;
 }
