@@ -1,11 +1,12 @@
 import { ArrowButton } from 'components/arrow-button';
 import { Button } from 'components/button';
 import styles from './ArticleParamsForm.module.scss';
-import { FormEvent, useState } from 'react';
+import { FormEvent, useRef, useState } from 'react';
 import clsx from 'clsx';
 import { Select } from 'components/select';
 import { RadioGroup } from '../radio-group';
 import { Separator } from '../separator';
+
 import {
 	fontFamilyOptions,
 	OptionType,
@@ -16,6 +17,7 @@ import {
 	backgroundColors,
 	contentWidthArr,
 } from 'src/constants/articleProps';
+import { useClickOut } from 'src/hooks/useClickOut';
 
 type ArticleParamsFormProps = {
 	setArticleState: (newStatusPage: ArticleStateType) => void;
@@ -51,10 +53,19 @@ export const ArticleParamsForm = ({
 		setArticleState(defaultArticleState);
 	};
 
+	const formRef = useRef<HTMLElement>(null);
+
+	useClickOut({
+		isOpen: isOpen,
+		onClose: () => setIsOpen(false),
+		rootRef: formRef,
+	});
+
 	return (
 		<>
 			<ArrowButton onClick={handleToggleOpen} isOpen={isOpen} />
 			<aside
+				ref={formRef}
 				className={clsx(styles.container, { [styles.container_open]: isOpen })}>
 				<form
 					onSubmit={onSubmitInfo}
