@@ -26,9 +26,9 @@ type ArticleParamsFormProps = {
 export const ArticleParamsForm = ({
 	setArticleState,
 }: ArticleParamsFormProps) => {
-	const [isOpen, setIsOpen] = useState<boolean>(false);
+	const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 	const handleToggleOpen = () => {
-		setIsOpen(!isOpen);
+		setIsMenuOpen(!isMenuOpen);
 	};
 
 	const [articleFilterParams, setArticleFilterParams] =
@@ -56,17 +56,19 @@ export const ArticleParamsForm = ({
 	const formRef = useRef<HTMLElement>(null);
 
 	useClickOut({
-		isOpen: isOpen,
-		onClose: () => setIsOpen(false),
+		isOpen: isMenuOpen,
+		onClose: () => setIsMenuOpen(false),
 		rootRef: formRef,
 	});
 
 	return (
 		<>
-			<ArrowButton onClick={handleToggleOpen} isOpen={isOpen} />
+			<ArrowButton onClick={handleToggleOpen} isOpen={isMenuOpen} />
 			<aside
 				ref={formRef}
-				className={clsx(styles.container, { [styles.container_open]: isOpen })}>
+				className={clsx(styles.container, {
+					[styles.container_open]: isMenuOpen,
+				})}>
 				<form
 					onSubmit={onSubmitInfo}
 					className={styles.form}
